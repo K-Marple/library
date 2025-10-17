@@ -5,8 +5,10 @@
   "license": "ISC",
   "author": "Kayli Marple",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "swagger": "node swagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -18,5 +20,9 @@
   "devDependencies": {
     "nodemon": "^3.1.10",
     "swagger-autogen": "^2.23.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/K-Marple/library.git"
   }
 }
