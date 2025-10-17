@@ -6,7 +6,7 @@
 GET http://localhost:8080/books HTTP/1.1
 
 ### GET book by id
-GET http://localhost:8080/books/ HTTP/1.1
+GET http://localhost:8080/books/68f2cb7c3e4baf868dfe7414 HTTP/1.1
 
 ### POST book
 POST http://localhost:8080/books HTTP/1.1
