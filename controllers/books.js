@@ -13,7 +13,9 @@ const allBooks = async (req, res) => {
 const singleBook = async (req, res) => {
   const id = req.params.id;
   const db = database.getDB();
-  const db_response = await db.collection("books").findOne({ _id: id });
+  const db_response = await db
+    .collection("books")
+    .findOne({ _id: new objectId(id) });
   res.setHeader("Content-Type", "application/json");
   res.status(200).json(db_response);
 };
@@ -50,7 +52,7 @@ const updateBook = async (req, res) => {
   const db = database.getDB();
   const db_response = await db
     .collection("books")
-    .replaceOne({ _id: id }, book);
+    .replaceOne({ _id: new objectId(id) }, book);
   res.setHeader("Content-Type", "application/json");
   res.status(204).json(db_response);
 };
@@ -58,7 +60,9 @@ const updateBook = async (req, res) => {
 const deleteBook = async (req, res) => {
   const id = req.params.id;
   const db = database.getDB();
-  const db_response = await db.collection("books").deleteOne({ _id: id });
+  const db_response = await db
+    .collection("books")
+    .deleteOne({ _id: new objectId(id) });
   if (db_response.deletedCount === 1) {
     res.status(200).send();
   }
