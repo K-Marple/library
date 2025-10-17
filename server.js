@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const route = require("./routes");
 const { connectDB } = require("./database/connection");
+const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const fs = require("fs");
 
@@ -23,6 +24,7 @@ app.use(
 );
 
 /* Middleware */
+app.use(cors());
 app.use(express.json());
 
 /* Routes */
