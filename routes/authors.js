@@ -7,7 +7,7 @@ const {
   addAuthor,
   updateAuthor,
   deleteAuthor,
-} = require("../controllers/author");
+} = require("../controllers/authors");
 
 /* Routes */
 /**
