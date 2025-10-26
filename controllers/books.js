@@ -4,20 +4,28 @@ const objectId = require("mongodb").ObjectId;
 
 /* Functions */
 const allBooks = async (req, res) => {
-  const db = database.getDB();
-  const db_response = await db.collection("books").find().toArray();
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json(db_response);
+  try {
+    const db = database.getDB();
+    const db_response = await db.collection("books").find().toArray();
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).json({ success: true, data: db_response });
+  } catch (error) {
+    res.status(500).json({ success: false, msg: "Get full collection error" });
+  }
 };
 
 const singleBook = async (req, res) => {
-  const id = req.params.id;
-  const db = database.getDB();
-  const db_response = await db
-    .collection("books")
-    .findOne({ _id: new objectId(id) });
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json(db_response);
+  try {
+    const id = req.params.id;
+    const db = database.getDB();
+    const db_response = await db
+      .collection("books")
+      .findOne({ _id: new objectId(id) });
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).json({ success: true, data: db_response });
+  } catch (error) {
+    res.status(500).json({ success: false, msg: "Get single book error" });
+  }
 };
 
 const addBook = async (req, res) => {
@@ -33,9 +41,13 @@ const addBook = async (req, res) => {
   const db = database.getDB();
   const db_response = await db
     .collection("books")
-    .insertOne({ _id: new objectId(), book });
+    .insertOne({ _id: new objectId(), ...book });
   res.setHeader("Content-Type", "application/json");
-  res.status(201).json(db_response);
+  if (db_response.acknowledged === true) {
+    res.status(201).json({ success: true, data: db_response });
+  } else {
+    res.status(500).json({ success: false, msg: "Adding new book error" });
+  }
 };
 
 const updateBook = async (req, res) => {
@@ -54,7 +66,11 @@ const updateBook = async (req, res) => {
     .collection("books")
     .replaceOne({ _id: new objectId(id) }, book);
   res.setHeader("Content-Type", "application/json");
-  res.status(204).json(db_response);
+  if (db_response.modifiedCount === 1) {
+    res.status(204).json({ success: true, data: db_response });
+  } else {
+    res.status(500).json({ success: false, msg: "Update book error" });
+  }
 };
 
 const deleteBook = async (req, res) => {
@@ -65,6 +81,8 @@ const deleteBook = async (req, res) => {
     .deleteOne({ _id: new objectId(id) });
   if (db_response.deletedCount === 1) {
     res.status(200).send();
+  } else {
+    res.status(500).json({ success: false, msg: "Deletion error" });
   }
 };
 

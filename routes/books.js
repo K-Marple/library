@@ -8,6 +8,7 @@ const {
   updateBook,
   deleteBook,
 } = require("../controllers/books");
+const { validateBook } = require("../validation/validation");
 
 /* Routes */
 /**
@@ -34,7 +35,7 @@ router.get("/:id", singleBook);
  * @returns {object} 200 - Book added
  * @returns {Error} 401 - Unauthorized
  */
-router.post("/", addBook);
+router.post("/", validateBook, addBook);
 
 /**
  * @route PUT /books/:id
@@ -44,7 +45,7 @@ router.post("/", addBook);
  * @returns {object} 200 - Book updated
  * @returns {Error} 401 - Unauthorized
  */
-router.put("/:id", updateBook);
+router.put("/:id", validateBook, updateBook);
 
 /**
  * @route DELETE /books/:id

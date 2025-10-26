@@ -8,6 +8,7 @@ const {
   updateAuthor,
   deleteAuthor,
 } = require("../controllers/authors");
+const { validateAuthor } = require("../validation/validation");
 
 /* Routes */
 /**
@@ -34,7 +35,7 @@ router.get("/:id", singleAuthor);
  * @returns {object} 200 - Author added
  * @returns {Error} 401 - Unauthorized
  */
-router.post("/", addAuthor);
+router.post("/", validateAuthor, addAuthor);
 
 /**
  * @route PUT /authors/:id
@@ -44,7 +45,7 @@ router.post("/", addAuthor);
  * @returns {object} 200 - Author updated
  * @returns {Error} 401 - Unauthorized
  */
-router.put("/:id", updateAuthor);
+router.put("/:id", validateAuthor, updateAuthor);
 
 /**
  * @route DELETE /authors/:id
