@@ -13,31 +13,31 @@ POST http://localhost:8080/books HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "Japanese Stories for Language Learners",
-    "author": "Anne McNulty & Eriko Sato",
-    "isbn": "978-4-8053-1468-5",
-    "published": "2018",
-    "genre": "Folklore",
-    "length": "188",
+    "title": "Toxic",
+    "author": "Leigh Hull",
+    "isbn": "978-1-948754-16-3",
+    "published": "2020",
+    "genre": "Fiction",
+    "length": "272",
     "rating": "9/10"
 }
 
 ### PUT book
-PUT http://localhost:8080/books/68fc541ba7a995e99821fd67 HTTP/1.1
+PUT http://localhost:8080/books/68fd9d96174dc21ccc7118b5 HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "Jurassic Park",
-    "author": "Michael Crichton",
-    "isbn": "0-394-58816-9",
-    "published": "1990",
-    "genre": "Science Fiction",
-    "length": "399",
+    "title": "Toxic",
+    "author": "Leigh Hull",
+    "isbn": "978-1-948754-16-3",
+    "published": "2020",
+    "genre": "Mystery",
+    "length": "272",
     "rating": "10/10"
 }
 
 ### DELETE book
-DELETE http://localhost:8080/books/68f2cfc6b0bb23d414bcce5d HTTP/1.1
+DELETE http://localhost:8080/books/68fc605fcd8000da39f4a819 HTTP/1.1
 
 ### GET author
 GET http://localhost:8080/author HTTP/1.1
