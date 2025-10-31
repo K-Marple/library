@@ -183,6 +183,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -198,25 +201,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "firstName": {
                   "example": "any"
                 },
-                "author": {
+                "lastName": {
                   "example": "any"
                 },
-                "isbn": {
+                "birthdate": {
                   "example": "any"
                 },
-                "published": {
+                "funFact": {
                   "example": "any"
                 },
-                "genre": {
-                  "example": "any"
-                },
-                "length": {
-                  "example": "any"
-                },
-                "rating": {
+                "works": {
                   "example": "any"
                 }
               }
@@ -229,6 +226,9 @@
           },
           "412": {
             "description": "Precondition Failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -250,6 +250,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -271,25 +274,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "firstName": {
                   "example": "any"
                 },
-                "author": {
+                "lastName": {
                   "example": "any"
                 },
-                "isbn": {
+                "birthdate": {
                   "example": "any"
                 },
-                "published": {
+                "funFact": {
                   "example": "any"
                 },
-                "genre": {
-                  "example": "any"
-                },
-                "length": {
-                  "example": "any"
-                },
-                "rating": {
+                "works": {
                   "example": "any"
                 }
               }
@@ -302,6 +299,9 @@
           },
           "412": {
             "description": "Precondition Failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -318,6 +318,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

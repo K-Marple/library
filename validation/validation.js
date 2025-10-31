@@ -32,7 +32,7 @@ const validateAuthor = [
   body("lastName").isString().notEmpty(),
   body("birthdate").isString().notEmpty(),
   body("funFact").isString(),
-  body("works").isString().notEmpty(),
+  body("works").isArray({ min: 1 }),
 
   /* Result */
   (req, res, next) => {

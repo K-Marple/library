@@ -4,63 +4,81 @@ const objectId = require("mongodb").ObjectId;
 
 /* Functions */
 const allAuthors = async (req, res) => {
-  const db = database.getDB();
-  const db_response = await db.collection("authors").find().toArray();
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json(db_response);
+  try {
+    const db = database.getDB();
+    const db_response = await db.collection("authors").find().toArray();
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).json({ success: true, data: db_response });
+  } catch (error) {
+    res.status(500).json({ success: false, msg: "Get full collection error" });
+  }
 };
 
 const singleAuthor = async (req, res) => {
-  const id = req.params.id;
-  const db = database.getDB();
-  const db_response = await db.collection("authors").findOne({ _id: id });
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).json(db_response);
+  try {
+    const id = req.params.id;
+    const db = database.getDB();
+    const db_response = await db
+      .collection("authors")
+      .findOne({ _id: new objectId(id) });
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).json({ success: true, data: db_response });
+  } catch (error) {
+    res.status(500).json({ success: false, msg: "Get single author error" });
+  }
 };
 
 const addAuthor = async (req, res) => {
   const author = {
-    title: req.body.title,
-    author: req.body.author,
-    isbn: req.body.isbn,
-    published: req.body.published,
-    genre: req.body.genre,
-    length: req.body.length,
-    rating: req.body.rating,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    birthdate: req.body.birthdate,
+    funFact: req.body.funFact,
+    works: req.body.works,
   };
   const db = database.getDB();
   const db_response = await db
     .collection("authors")
-    .insertOne({ _id: new objectId(), author });
+    .insertOne({ _id: new objectId(), ...author });
   res.setHeader("Content-Type", "application/json");
-  res.status(201).json(db_response);
+  if (db_response.acknowledged === true) {
+    res.status(201).json({ success: true, data: db_response });
+  } else {
+    res.status(500).json({ success: false, msg: "Adding new author error" });
+  }
 };
 
 const updateAuthor = async (req, res) => {
   const id = req.params.id;
   const author = {
-    title: req.body.title,
-    author: req.body.author,
-    isbn: req.body.isbn,
-    published: req.body.published,
-    genre: req.body.genre,
-    length: req.body.length,
-    rating: req.body.rating,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    birthdate: req.body.birthdate,
+    funFact: req.body.funFact,
+    works: req.body.works,
   };
   const db = database.getDB();
   const db_response = await db
     .collection("authors")
-    .replaceOne({ _id: id }, author);
+    .replaceOne({ _id: new objectId(id) }, author);
   res.setHeader("Content-Type", "application/json");
-  res.status(204).json(db_response);
+  if (db_response.modifiedCount === 1) {
+    res.status(204).json({ success: true, data: db_response });
+  } else {
+    res.status(500).json({ success: false, msg: "Update author error" });
+  }
 };
 
 const deleteAuthor = async (req, res) => {
   const id = req.params.id;
   const db = database.getDB();
-  const db_response = await db.collection("authors").deleteOne({ _id: id });
+  const db_response = await db
+    .collection("authors")
+    .deleteOne({ _id: new objectId(id) });
   if (db_response.deletedCount === 1) {
     res.status(200).send();
+  } else {
+    res.status(500).json({ success: false, msg: "Deletion error" });
   }
 };
 
