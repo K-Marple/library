@@ -6,6 +6,7 @@ const { connectDB } = require("./database/connection");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const fs = require("fs");
+const static = require("./routes/static");
 
 /* Local */
 const port = process.env.PORT || 8080;
@@ -28,6 +29,7 @@ app.use(cors());
 app.use(express.json());
 
 /* Routes */
+app.use(static);
 app.use("/", route);
 
 /* Confirm Operation */
