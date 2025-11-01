@@ -7,6 +7,7 @@ const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const fs = require("fs");
 const static = require("./routes/static");
+const expressLayouts = require("express-ejs-layouts");
 
 /* Local */
 const port = process.env.PORT || 8080;
@@ -27,6 +28,13 @@ app.use(
 /* Middleware */
 app.use(cors());
 app.use(express.json());
+
+/* View & Templates */
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "./layouts/layout");
+
+app.use(express.static("public"));
 
 /* Routes */
 app.use(static);
