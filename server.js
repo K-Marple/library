@@ -8,6 +8,7 @@ const swaggerUi = require("swagger-ui-express");
 const fs = require("fs");
 const static = require("./routes/static");
 const expressLayouts = require("express-ejs-layouts");
+const path = require("path");
 
 /* Local */
 const port = process.env.PORT || 8080;
@@ -33,6 +34,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));
 
