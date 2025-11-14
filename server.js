@@ -14,16 +14,26 @@ const path = require("path");
 const port = process.env.PORT || 8080;
 
 /* Swagger */
-app.get("/swagger.json", (req, res) => {
-  const file = fs.readFileSync("./swagger.json");
-  res.setHeader("Content-Type", "application/json");
-  res.send(JSON.parse(file));
-});
+// app.get("/swagger.json", (req, res) => {
+//   const file = fs.readFileSync("./swagger.json");
+//   res.setHeader("Content-Type", "application/json");
+//   res.send(JSON.parse(file));
+// });
+
+const swaggerFile = fs.readFileSync("./swagger.json");
+const swaggerDoc = JSON.parse(swaggerFile);
+
+swaggerDoc.host =
+  process.env.NODE_ENV === "production"
+    ? "library-hk2y.onrender.com"
+    : "localhost:8080";
+
+swaggerDoc.schemes = [process.env.NODE_ENV === "production" ? "https" : "http"];
 
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(null, { swaggerUrl: "/swagger.json" })
+  swaggerUi.setup(swaggerDoc) //null, { swaggerUrl: "/swagger.json" })
 );
 
 /* Middleware */
